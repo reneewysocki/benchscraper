@@ -3,7 +3,7 @@ $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'><b>" + data[i].title + "</b><br />" + data[i].description + "<br /><a href='" + data[i].link + "' target='_blank'>" + data[i].link + "</a></p>");
+    $("#articles").append("<p data-id='" + data[i]._id + "'><span class='recipe-title'>" + data[i].title + "</span><br />" + data[i].description + "<br /><a href='" + data[i].link + "' target='_blank'>" + data[i].link + "</a><hr></p>");
   }
 });
 
@@ -24,13 +24,13 @@ $(document).on("click", "p", function() {
     .then(function(data) {
       console.log(data);
       // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
+      $("#notes").append("<h4><span class='notes-title'>" + data.title + "</span></h4>");
       // An input to enter a new title
       $("#notes").append("<input id='titleinput' name='title'  placeholder='Title'>");
       // A textarea to add a new note body
       $("#notes").append("<textarea id='bodyinput' placeholder='Notes'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      $("#notes").append("<button data-id='" + data._id + "' id='savenote' class='btn btn-primary'>Save Note</button>");
 
       // If there's a note in the article
       if (data.note) {

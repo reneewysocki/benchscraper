@@ -4,46 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="img/benchscraper.png" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-    <title>Recipe Scraper</title>
-    <style> 
-      #wrapper {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 2%;
-      }
-      #articles {
-        display: inline-block;
-        overflow: auto;
-        width: 60%;
-        height: 700px;
-      }
-      #notes {
-        float: right;
-        width: 30%;
-      }
-      textarea, input {
-        display: block;
-        width: 100%;
-      }
-      input {
-        height: 36px;
-        font-size: 24px;
-      }
-      textarea {
-        height: 200px;
-        font-size: 18px;
-      }
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Open+Sans" rel="stylesheet">
+    <title>BenchScraper</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #323031;
+            color: white;
+            font-size: 16px;
+        }
 
-      .delete {
-        margin-left: 20px;
-        color: red;
-        cursor: pointer;
-        text-align: right;
-      }
+        a {
+            color: #DB3A34;
+        }
 
+        hr {
+            background-color: #177E89;
+        }
 
+        #wrapper {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 5%;
+        }
+
+        #articles {
+            display: inline-block;
+            overflow: auto;
+            width: 60%;
+            padding-bottom: 5%;
+        }
+
+        #notes {
+            float: right;
+            width: 30%;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
+
+        textarea,
+        input {
+            display: block;
+            width: 100%;
+        }
+
+        input {
+            height: 36px;
+            font-size: 20px;
+        }
+
+        textarea {
+            height: 200px;
+            font-size: 16px;
+        }
+
+        .delete {
+            margin-left: 20px;
+            color: red;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        .recipe-title {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Bree Serif', serif;
+            color: #FFC857;
+        }
+
+        .notes-title {
+            font-weight: bold;
+            font-family: 'Bree Serif', serif;
+            color: #DB3A34;
+        }
+
+        #savenote {
+            background-color: #177E89;
+            color: white;
+            margin-top: 10px;
+        }
+
+        #titleinput {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
