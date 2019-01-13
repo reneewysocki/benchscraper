@@ -8,7 +8,7 @@ const logger = require('morgan');
 // Require all models
 const db = require('./models');
 
-const PORT = process.env.PORT || 3031;
+const PORT = process.env.PORT || 3030;
 
 // Initialize Express
 const app = express();
@@ -38,39 +38,61 @@ mongoose.connect(MONGODB_URI);
 app.get("/", function (req, res) {
     res.render("index", {
     });
-  });
-  
+});
+
 
 /// A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
     // First, we grab the body of the html with axios
-    axios.get("https://old.reddit.com/r/Breadit/").then(function (response) {
+    axios.get("https://www.allrecipes.com/").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
 
         // Now, we grab every h2 within an article tag, and do the following:
-        $("p.title").each(function (i, element) {
+        $(".fixed-recipe-card__info").each(function (i, element) {
             // Save an empty result object
             var result = {};
 
             // Add the text and href of every link, and save them as properties of the result object
             result.title = $(this)
+                .children("h3")
                 .children("a")
+                .children(".fixed-recipe-card__title-link")
+                .text();
+            result.description = $(this)
+                .children("a")
+                .children(".fixed-recipe-card__description")
                 .text();
             result.link = $(this)
                 .children("a")
                 .attr("href");
 
-            // Create a new Article using the `result` object built from scraping
-            db.Article.create(result)
-                .then(function (dbArticle) {
-                    // View the added result in the console
-                    console.log(dbArticle);
-                })
-                .catch(function (err) {
-                    // If an error occurred, log it
+            // Check if article is a duplicate
+            db.Article.findOne(result, function (err, success) {
+                if (err) {
                     console.log(err);
-                });
+                    res.send(err);
+                }
+
+                else {
+                    console.log(success);
+                    if (success == null) {
+                        // Create a new Article using the 'result' object built from scraping
+                        db.Article.create(result)
+                            .then(function (dbArticle) {
+                                // View the added result in the console
+                                console.log(dbArticle);
+                            })
+                            .catch(function (err) {
+                                // If an error occurred, log it
+                                console.log(err)
+                            });
+                    }
+                    else {
+                        console.log("Article already present.");
+                    }
+                }
+            });
         });
 
         // Send a message to the client
